@@ -1,3 +1,3 @@
 export default function Ingredients() {
-  return <div>Ingredients</div>;
+    return <div>Ingredients</div>;
 }
