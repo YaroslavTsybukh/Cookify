@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { siteConfig } from "@/config/site.config";
 import { Header } from "@/components/ui";
 import { Providers } from "@/providers/provider";
 import "./globals.css";
@@ -16,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
-  description: "Recipes for various dishes",
+  title: siteConfig.title,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
