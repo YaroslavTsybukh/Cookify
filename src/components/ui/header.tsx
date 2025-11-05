@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { Button } from '@heroui/button';
 
-import { siteConfig } from '@/config/site.config';
+import { layoutConfig, siteConfig } from '@/config';
 
 export const Logo = () => {
     return <Image src="/logo.png" width={26} height={26} priority alt={siteConfig.title} />;
@@ -34,7 +34,7 @@ export const Header = () => {
     };
 
     return (
-        <Navbar>
+        <Navbar style={{ height: layoutConfig.headerHeight }}>
             <NavbarBrand>
                 <Link href="/" className="flex gap-1">
                     <Logo />

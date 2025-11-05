@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import { siteConfig } from '@/config/site.config';
+import { siteConfig, layoutConfig } from '@/config';
 import { Header } from '@/components/ui';
 import { Providers } from '@/providers/provider';
 import './globals.css';
@@ -31,7 +31,15 @@ export default function RootLayout({
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <Providers>
                     <Header />
-                    {children}
+                    <main
+                        className="flex w-full flex-col items-center justify-start"
+                        style={{ height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})` }}
+                    >
+                        {children}
+                    </main>
+                    <footer className="flex w-full items-center justify-center py-3" style={{ height: layoutConfig.footerHeight }}>
+                        <p>{siteConfig.description}</p>
+                    </footer>
                 </Providers>
             </body>
         </html>
