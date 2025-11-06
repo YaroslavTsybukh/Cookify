@@ -4,6 +4,7 @@ import { Input } from '@heroui/input';
 import { Button } from '@heroui/button';
 
 import { IModal, IRegisterFields } from '@/types';
+import { registerUser } from '@/actions';
 
 export const RegistrationForm: FC<Pick<IModal, 'onClose'>> = ({ onClose }) => {
     const [formData, setFormData] = useState<IRegisterFields>({
@@ -17,9 +18,10 @@ export const RegistrationForm: FC<Pick<IModal, 'onClose'>> = ({ onClose }) => {
         return emailRegex.test(email);
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('formData', formData);
+
+        const result = await registerUser(formData);
     };
 
     return (
