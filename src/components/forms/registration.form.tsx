@@ -21,7 +21,9 @@ export const RegistrationForm: FC<Pick<IModal, 'onClose'>> = ({ onClose }) => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        const result = await registerUser(formData);
+        await registerUser(formData);
+
+        onClose();
     };
 
     return (

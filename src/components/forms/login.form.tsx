@@ -4,6 +4,7 @@ import { Input } from '@heroui/input';
 import { Button } from '@heroui/button';
 
 import { ILoginFields, IModal } from '@/types';
+import { signInWithCredentials } from '@/actions';
 
 export const LoginForm: FC<Pick<IModal, 'onClose'>> = ({ onClose }) => {
     const [formData, setFormData] = useState<ILoginFields>({
@@ -11,9 +12,12 @@ export const LoginForm: FC<Pick<IModal, 'onClose'>> = ({ onClose }) => {
         password: '',
     });
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('formData', formData);
+
+        await signInWithCredentials(formData.email, formData.password);
+        //windows.location.reload()
+        onClose();
     };
 
     return (
