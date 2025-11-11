@@ -12,6 +12,7 @@ import { useShallow } from 'zustand/shallow';
 import { layoutConfig, siteConfig } from '@/config';
 import { RegistrationModal, LoginModal } from '@/components/modals';
 import { useAuthStore } from '@/store';
+import { signOutFunc } from '@/actions';
 
 export const Logo = () => {
     return <Image src="/logo.png" width={26} height={26} priority alt={siteConfig.title} />;
@@ -42,9 +43,21 @@ export const Header = () => {
         });
     };
 
+    const handleSignOut = async () => {
+        try {
+            await signOutFunc();
+            setAuthState('unauthenticated', null);
+        } catch (e) {
+            if (e instanceof Error) {
+                console.log(e.message);
+            }
+        }
+    };
+
     useEffect(() => {
         setAuthState(status, session);
     }, [status, session, setAuthState]);
+
     //TODO: добавить во время загрузки loader
     return (
         <Navbar style={{ height: layoutConfig.headerHeight }}>
@@ -62,9 +75,9 @@ export const Header = () => {
 
                 {status === 'loading' ? (
                     <p>Загрузка...</p>
-                ) : status === 'authenticated' ? (
+                ) : isAuth ? (
                     <NavbarItem className="hidden lg:flex">
-                        <Button as={Link} color="primary" variant="flat" href="#" onPress={() => console.log('Выйти')}>
+                        <Button as={Link} color="primary" variant="flat" href="#" onPress={handleSignOut}>
                             Выйти
                         </Button>
                     </NavbarItem>

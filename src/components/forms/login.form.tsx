@@ -16,7 +16,9 @@ export const LoginForm: FC<Pick<IModal, 'onClose'>> = ({ onClose }) => {
         e.preventDefault();
 
         await signInWithCredentials(formData.email, formData.password);
-        //windows.location.reload()
+
+        window.location.reload();
+
         onClose();
     };
 
