@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { Button } from '@heroui/button';
+import { Spinner } from '@heroui/spinner';
 import { useShallow } from 'zustand/shallow';
 
 import { layoutConfig, siteConfig } from '@/config';
@@ -22,8 +22,10 @@ export const Header = () => {
     const pathName = usePathname();
     const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(false);
     const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
-    const { data: session, status } = useSession();
-    const [setAuthState, isAuth] = useAuthStore(useShallow((state) => [state.setAuthState, state.isAuth]));
+
+    const [setAuthState, isAuth, session, status] = useAuthStore(
+        useShallow((state) => [state.setAuthState, state.isAuth, state.session, state.status]),
+    );
 
     const getNavItems = () => {
         return siteConfig.navItems.map((navItem) => {
@@ -54,11 +56,6 @@ export const Header = () => {
         }
     };
 
-    useEffect(() => {
-        setAuthState(status, session);
-    }, [status, session, setAuthState]);
-
-    //TODO: добавить во время загрузки loader
     return (
         <Navbar style={{ height: layoutConfig.headerHeight }}>
             <NavbarBrand>
@@ -74,14 +71,8 @@ export const Header = () => {
                 {isAuth && <p>Привет, {session?.user?.email}</p>}
 
                 {status === 'loading' ? (
-                    <p>Загрузка...</p>
-                ) : isAuth ? (
-                    <NavbarItem className="hidden lg:flex">
-                        <Button as={Link} color="primary" variant="flat" href="#" onPress={handleSignOut}>
-                            Выйти
-                        </Button>
-                    </NavbarItem>
-                ) : (
+                    <Spinner />
+                ) : !isAuth ? (
                     <>
                         <NavbarItem className="hidden lg:flex">
                             <Button as={Link} color="primary" variant="flat" href="#" onPress={() => setIsLoginOpen(true)}>
@@ -94,6 +85,12 @@ export const Header = () => {
                             </Button>
                         </NavbarItem>
                     </>
+                ) : (
+                    <NavbarItem className="hidden lg:flex">
+                        <Button as={Link} color="primary" variant="flat" href="#" onPress={handleSignOut}>
+                            Выйти
+                        </Button>
+                    </NavbarItem>
                 )}
             </NavbarContent>
             <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
