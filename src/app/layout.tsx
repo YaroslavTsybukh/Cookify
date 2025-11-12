@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import { siteConfig, layoutConfig } from '@/config';
-import { Header } from '@/components';
+import { Header, Title } from '@/components';
 import { Providers } from '@/providers/provider';
 import { AppLoader } from '@/hoc/app-loader';
 import { auth } from '@/auth/auth';
@@ -38,6 +38,7 @@ export default async function RootLayout({
                     <SessionProvider session={session}>
                         <AppLoader>
                             <Header />
+                            <Title />
                             <main
                                 className="flex w-full flex-col items-center justify-start"
                                 style={{ height: `calc(100vh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})` }}
