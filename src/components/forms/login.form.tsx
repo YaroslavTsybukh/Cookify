@@ -1,7 +1,7 @@
+'use client';
+
 import { FC, FormEvent, useState } from 'react';
-import { Form } from '@heroui/form';
-import { Input } from '@heroui/input';
-import { Button } from '@heroui/button';
+import { Form, Input, Button } from '@heroui/react';
 
 import { ILoginFields, IModal } from '@/types';
 import { signInWithCredentials } from '@/actions';

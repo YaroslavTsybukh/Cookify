@@ -8,3 +8,11 @@ export interface IRegisterFields {
     password: string;
     confirmPassword: string;
 }
+
+export interface IIngredientsFields {
+    name: string;
+    category: string;
+    unit: string;
+    pricePerUnit: null | number;
+    description: string;
+}

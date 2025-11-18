@@ -1,3 +1,9 @@
+import { IngredientsForm } from '@/components';
+
 export default function Ingredients() {
-    return <div>Ingredients</div>;
+    return (
+        <div className="h-fit">
+            <IngredientsForm />
+        </div>
+    );
 }
