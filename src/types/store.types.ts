@@ -4,8 +4,7 @@ import { IIngredient } from '@/types';
 
 type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading';
 
-//Todo: исправить название интерфейса
-export interface IAuth {
+export interface IAuthStore {
     isAuth: boolean;
     status: SessionStatus;
     session: Session | null;

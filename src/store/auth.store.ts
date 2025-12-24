@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { IAuth } from '@/types';
+import { IAuthStore } from '@/types';
 
-export const useAuthStore = create<IAuth>()(
+export const useAuthStore = create<IAuthStore>()(
     devtools((set) => ({
         isAuth: false,
         status: 'loading',
