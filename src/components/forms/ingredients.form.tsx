@@ -15,8 +15,6 @@ const initialState = {
     description: '',
 };
 
-//TODO: разобрать функцию handleSubmit
-
 export const IngredientsForm = () => {
     const [formData, setFormData] = useState<IIngredientsFields>(initialState);
     const [error, setError] = useState<string | null>(null);

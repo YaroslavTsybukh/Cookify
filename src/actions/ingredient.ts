@@ -34,6 +34,6 @@ export const createIngredient = async (formData: FormData) => {
         }
 
         console.error('Ошибка создания ингредиента:', e);
-        return { error: 'Ошибка при создании ингредиента:' };
+        throw e;
     }
 };
