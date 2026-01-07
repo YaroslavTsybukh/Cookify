@@ -27,10 +27,10 @@ export const createIngredient = async (formData: FormData) => {
             },
         });
 
-        return { success: true, ingredient };
+        return ingredient;
     } catch (e) {
         if (e instanceof ZodError) {
-            return { error: e.issues.map((issue) => issue.message).join(', ') };
+            throw new Error(e.issues.map((issue) => issue.message).join(', '));
         }
 
         console.error('Ошибка создания ингредиента:', e);

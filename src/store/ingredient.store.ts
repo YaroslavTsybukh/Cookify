@@ -16,38 +16,27 @@ export const useIngredientStore = create<IIngredientStore>()(
             try {
                 const res = await createIngredient(formData);
 
-                if (res.success) {
-                    set((state) => ({
-                        ingredients: [...state.ingredients, res.ingredient],
-                        isLoading: false,
-                    }));
+                set((state) => ({
+                    ingredients: [...state.ingredients, res],
+                    isLoading: false,
+                }));
 
-                    addToast({
-                        title: 'Готово',
-                        description: 'Ингредиенты успешно добавлены ',
-                        color: 'success',
-                    });
-                } else {
-                    set({ isLoading: false, error: res.error });
-
-                    addToast({
-                        title: 'Ошибка',
-                        description: 'Проверьте данные и повторите попытку',
-                        color: 'danger',
-                    });
-                }
+                addToast({
+                    title: 'Готово',
+                    description: 'Ингредиенты успешно добавлены ',
+                    color: 'success',
+                });
             } catch (e) {
-                if (e instanceof Error) {
-                    console.error('Error', e);
+                const message = e instanceof Error ? e.message : 'Ошибка при добавлении ингредиента';
+                console.error('Error', e);
 
-                    set({ isLoading: false, error: 'Ошибка при добавлении ингредиента' });
+                set({ isLoading: false, error: message });
 
-                    addToast({
-                        title: 'Ошибка',
-                        description: 'Не удалось добавить ингредиент. Попробуйте позже',
-                        color: 'danger',
-                    });
-                }
+                addToast({
+                    title: 'Ошибка',
+                    description: 'Не удалось добавить ингредиент. Попробуйте позже',
+                    color: 'danger',
+                });
             }
         },
     })),
